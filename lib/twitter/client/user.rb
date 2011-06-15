@@ -203,6 +203,18 @@ module Twitter
         end
         format.to_s.downcase == 'xml' ? response['users_list'] : response
       end
+      
+      #   @option options [Boolean, String, Integer] :include_entities Include {http://dev.twitter.com/pages/tweet_entities Tweet Entities} when set to true, 't' or 1.
+      #   @return [Hashie::Mash]
+      #   @example Return list of users
+      #     Twitter.lookup({user_id => '7505382,130423'})
+      #     Twitter.lookup({screen_name => 'ev,biz'})  # Same as above
+      # @see http://dev.twitter.com/doc/get/users/lookup
+      def lookup(*args)
+        options = args.last.is_a?(Hash) ? args.pop : {}
+        response = get('users/lookup', options)
+        format.to_s.downcase == 'xml' ? response['users'] : response
+      end
     end
   end
 end
